@@ -28,8 +28,13 @@ event_urls = [
     path('events/<int:pk>/', views.EventsViewSet.as_view(), name="events"),
 ]
 
+room_urls = [
+    path('rooms/', views.RoomViewSet.as_view(), name="rooms_list"),
+    path('rooms/<int:pk>/', views.RoomViewSet.as_view(), name="rooms"),
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     # path('api-auth/', include('rest_framework.urls')),
-] + event_urls
+] + event_urls + room_urls
