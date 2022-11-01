@@ -69,3 +69,18 @@ class BookingViewSet(
 
     def get_queryset(self):
         return Booking.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        event_id = request.data.get("event")
+        event = Event.objects.get(id=event_id)
+
+        max_capacity = event.room.capacity
+        bookings = Booking.objects.filter(event_id=event_id).count()
+
+        if bookings >= max_capacity:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={"error": "Maximum capacity reached."},
+            )
+        else:
+            return super(BookingViewSet, self).create(request, *args, **kwargs)

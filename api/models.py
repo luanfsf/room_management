@@ -58,7 +58,6 @@ class Booking(models.Model):
     ):
         max_capacity = self.event.room.capacity
         bookings = Booking.objects.filter(event=self.event).count()
-        print(max_capacity, bookings)
 
         if bookings >= max_capacity:
             raise Exception("Maximum capacity reached.")
