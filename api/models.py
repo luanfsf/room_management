@@ -53,6 +53,18 @@ class Booking(models.Model):
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     booked = models.BooleanField()
 
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None, *args, **kwargs
+    ):
+        max_capacity = self.event.room.capacity
+        bookings = Booking.objects.filter(event=self.event).count()
+        print(max_capacity, bookings)
+
+        if bookings >= max_capacity:
+            raise Exception("Maximum capacity reached.")
+        else:
+            super(Booking, self).save(*args, **kwargs)
+
     class Meta:
         unique_together = ("customer", "event")
 
