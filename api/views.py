@@ -82,5 +82,10 @@ class BookingViewSet(
                 status=status.HTTP_400_BAD_REQUEST,
                 data={"error": "Maximum capacity reached."},
             )
+        if event.event_type == Event.PRIVATE:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={"error": "Default users cannot create events for private events."},
+            )
         else:
             return super(BookingViewSet, self).create(request, *args, **kwargs)

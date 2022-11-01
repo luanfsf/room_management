@@ -54,7 +54,13 @@ class Booking(models.Model):
     booked = models.BooleanField()
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None, *args, **kwargs
+        self,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,
+        *args,
+        **kwargs,
     ):
         max_capacity = self.event.room.capacity
         bookings = Booking.objects.filter(event=self.event).count()
