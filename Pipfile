@@ -10,6 +10,7 @@ markdown = "*"
 django-filter = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.9"

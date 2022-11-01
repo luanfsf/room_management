@@ -8,14 +8,14 @@ class Business(models.Model):
     name = models.CharField(max_length=DEFAULT_MAX_LENGTH)
 
     def __str__(self):
-        return 'Business: ' + self.name
+        return "Business: " + self.name
 
 
 class Customer(models.Model):
     name = models.CharField(max_length=DEFAULT_MAX_LENGTH)
 
     def __str__(self):
-        return 'Customer: ' + self.name
+        return "Customer: " + self.name
 
 
 class Room(models.Model):
@@ -24,7 +24,7 @@ class Room(models.Model):
     capacity = models.PositiveIntegerField()
 
     def __str__(self):
-        return 'Room: ' + self.name
+        return "Room: " + self.name
 
 
 class Event(models.Model):
@@ -35,21 +35,17 @@ class Event(models.Model):
 
     PRIVATE = "private"
     PUBLIC = "public"
-    EVENT_TYPE_OPTIONS = [
-        (PRIVATE, "private"),
-        (PUBLIC, "public")
-    ]
+    EVENT_TYPE_OPTIONS = [(PRIVATE, "private"), (PUBLIC, "public")]
 
     event_type = models.CharField(
-        max_length=DEFAULT_MAX_LENGTH,
-        choices=EVENT_TYPE_OPTIONS
+        max_length=DEFAULT_MAX_LENGTH, choices=EVENT_TYPE_OPTIONS
     )
 
     def __str__(self):
-        return f'Event: {self.name} on {self.date}'
+        return f"Event: {self.name} on {self.date}"
 
     class Meta:
-        unique_together = ('room', 'date')
+        unique_together = ("room", "date")
 
 
 class Booking(models.Model):
@@ -58,7 +54,7 @@ class Booking(models.Model):
     booked = models.BooleanField()
 
     class Meta:
-        unique_together = ('customer', 'event')
+        unique_together = ("customer", "event")
 
     def __str__(self):
-        return f'Booking: {self.event.name}, {self.event.room.name}, {self.event.date}, {self.customer.name}'
+        return f"Booking: {self.event.name}, {self.event.room.name}, {self.event.date}, {self.customer.name}"

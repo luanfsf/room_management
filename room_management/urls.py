@@ -23,18 +23,38 @@ from django.urls import path
 
 router = routers.DefaultRouter()
 
-event_urls = [
-    path('events/', views.EventsViewSet.as_view(), name="events_list"),
-    path('events/<int:pk>/', views.EventsViewSet.as_view(), name="events"),
+business_urls = [
+    path("business/", views.BusinessViewSet.as_view(), name="business_list"),
+    path("business/<int:pk>/", views.BusinessViewSet.as_view(), name="business"),
+]
+customer_urls = [
+    path("customer/", views.CustomerViewSet.as_view(), name="customers_list"),
+    path("customer/<int:pk>/", views.CustomerViewSet.as_view(), name="customer"),
 ]
 
 room_urls = [
-    path('rooms/', views.RoomViewSet.as_view(), name="rooms_list"),
-    path('rooms/<int:pk>/', views.RoomViewSet.as_view(), name="rooms"),
+    path("room/", views.RoomViewSet.as_view(), name="rooms_list"),
+    path("room/<int:pk>/", views.RoomViewSet.as_view(), name="room"),
 ]
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    # path('api-auth/', include('rest_framework.urls')),
-] + event_urls + room_urls
+event_urls = [
+    path("event/", views.EventsViewSet.as_view(), name="events_list"),
+    path("event/<int:pk>/", views.EventsViewSet.as_view(), name="event"),
+]
+
+booking_urls = [
+    path("booking/", views.BookingViewSet.as_view(), name="bookings_list"),
+    path("booking/<int:pk>/", views.BookingViewSet.as_view(), name="booking"),
+]
+
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls),
+        path("", include(router.urls)),
+    ]
+    + business_urls
+    + customer_urls
+    + room_urls
+    + event_urls
+    + booking_urls
+)
